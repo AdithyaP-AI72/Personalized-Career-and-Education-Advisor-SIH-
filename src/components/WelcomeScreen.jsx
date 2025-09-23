@@ -71,7 +71,6 @@ export default function WelcomeScreen({ onLoginOrSignup, onCompleteSignup }) {
                                 <option value="Class 11">Class 11</option>
                                 <option value="Class 12">Class 12</option>
                             </select>
-                            <input type="text" id="academicInterests" placeholder="Academic interests (e.g., Science, Arts)" value={details.academicInterests} onChange={handleDetailChange} />
                             <button type="button" onClick={handleFinish}>Finish Setup</button>
                             <button type="button" className="skip-btn" onClick={handleFinish}>Skip for now</button>
                         </div>
