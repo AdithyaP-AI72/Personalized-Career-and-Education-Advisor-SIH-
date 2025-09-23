@@ -11,39 +11,37 @@ import Quiz from './components/Quiz';
 import NearbyColleges from './components/NearbyColleges';
 import CareerPaths from './components/CareerPaths';
 import Timeline from './components/Timeline';
-import Modal from './components/Modal'; // Import the new Modal component
+import Modal from './components/Modal';
 import './index.css';
 
-// Helper function to get all users from our "temporary database"
 const getAllUsers = () => {
   const users = localStorage.getItem('users');
   return users ? JSON.parse(users) : {};
 };
 
-// Helper function from original script
-function findNodeByTitle(node, title) {
-  if (node.t === title) return node;
+function findNodeByTitle(node, title, parentTitle = null) {
+  let results = [];
+  if (node.t === title) {
+    results.push({ ...node, parent: parentTitle });
+  }
+
   if (node.c) {
     for (const child of node.c) {
-      const found = findNodeByTitle(child, title);
-      if (found) return found;
+      results = results.concat(findNodeByTitle(child, title, node.t));
     }
   }
-  return null;
+  return results;
 }
 
 function App() {
-  // User & UI State
-  const [currentUser, setCurrentUser] = useState(null); // Changed from userProfile
+  const [currentUser, setCurrentUser] = useState(null);
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
   const [activeTab, setActiveTab] = useState('quiz');
   const [isProfilePanelOpen, setProfilePanelOpen] = useState(false);
-  const [modalData, setModalData] = useState(null); // State for the modal
+  const [modalData, setModalData] = useState(null);
 
-  // Career Path State
   const [selectedNode, setSelectedNode] = useState(null);
 
-  // College Filtering State
   const [collegeState, setCollegeState] = useState({
     collegesWithDistance: [],
     userLocation: null,
@@ -51,7 +49,6 @@ function App() {
     careerFilteredColleges: [],
   });
 
-  // Load user session on initial render
   useEffect(() => {
     const savedUser = localStorage.getItem('currentUser');
     if (savedUser) {
@@ -63,17 +60,14 @@ function App() {
     document.body.className = theme === 'dark' ? 'dark-mode' : '';
   }, [theme]);
 
-  // Handlers
   const handleLoginOrSignup = (username) => {
     const allUsers = getAllUsers();
     if (allUsers[username]) {
-      // User exists, log them in
       localStorage.setItem('currentUser', username);
       setCurrentUser(allUsers[username]);
-      return false; // Not a new user
+      return false;
     }
-    // User does not exist
-    return true; // Is a new user
+    return true;
   };
 
   const handleCompleteSignup = (username, details) => {
@@ -88,7 +82,7 @@ function App() {
     localStorage.setItem('currentUser', username);
     setCurrentUser(newProfile);
   };
-  
+
   const handleLogout = () => {
     localStorage.removeItem('currentUser');
     setCurrentUser(null);
@@ -108,12 +102,9 @@ function App() {
     setTheme(newTheme);
   };
 
-  const handleQuizComplete = (topCareer) => {
-    const node = findNodeByTitle(treeData, topCareer);
-    if (node) {
-      setSelectedNode(node);
-      setActiveTab('courses');
-    }
+  const handleQuizComplete = (careerNode) => {
+    setSelectedNode(careerNode);
+    setActiveTab('courses');
   };
 
   const handleExploreColleges = (relevantColleges) => {
@@ -136,8 +127,8 @@ function App() {
         />
         <main>
           <TabNav activeTab={activeTab} onTabClick={setActiveTab} />
-          
-          {activeTab === 'quiz' && <Quiz onQuizComplete={handleQuizComplete} />}
+
+          {activeTab === 'quiz' && <Quiz userProfile={currentUser} onQuizComplete={handleQuizComplete} />}
           {activeTab === 'courses' && <CareerPaths selectedNode={selectedNode} setSelectedNode={setSelectedNode} onExplore={handleExploreColleges} />}
           {activeTab === 'colleges' && <NearbyColleges collegeState={collegeState} setCollegeState={setCollegeState} onTabSwitch={setActiveTab} onOpenModal={(title, content) => setModalData({ title, content })} />}
           {activeTab === 'timeline' && <Timeline />}

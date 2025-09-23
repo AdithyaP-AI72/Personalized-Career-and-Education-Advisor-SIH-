@@ -190,7 +190,7 @@ main > section {
 
 /* ===== Sections & Panels ===== */
 main { padding: 20px; max-width: 1400px; margin: 0 auto; }
-#quiz, #colleges, #timeline, .courses-column {
+#quiz, #colleges, #timeline, #courses {
     background: var(--card-bg);
     padding: 20px;
     border-radius: var(--border-radius);
@@ -354,9 +354,56 @@ main { padding: 20px; max-width: 1400px; margin: 0 auto; }
 #logoutBtn:hover { background-color: #c82333; }
 
 
-/* Other styles remain the same */
+/* ===== Quiz Button Styling ===== */
 #quizProgressContainer { width: 100%; background-color: var(--border-color); border-radius: 5px; margin-bottom: 20px; overflow: hidden; }
 #progressFill { height: 8px; background-color: var(--secondary-color); transition: width 0.4s ease; width: 0%; }
+
+#quizBox .options button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 10px;
+    background: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+#quizBox .options button:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-1px);
+    background-color: var(--background-color);
+}
+
+.quiz-results .recommendation { background-color: var(--background-color); border-left: 4px solid var(--secondary-color); padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+.result-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.result-buttons button, .retake-quiz-btn {
+    background: var(--secondary-color);
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.result-buttons button:hover, .retake-quiz-btn:hover {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+.retake-quiz-btn {
+    background: var(--text-color-light) !important;
+    margin-top: 20px !important;
+}
+
+/* ===== Career Tree Styling ===== */
 .tree ul { list-style: none; margin: 0; padding-left: 20px; position: relative; }
 .tree ul::before { content: ""; border-left: 2px solid var(--border-color); position: absolute; top: 0; bottom: 0; left: 0; }
 .tree li { margin: 0; padding: 5px 0 5px 20px; position: relative; transition: background-color 0.2s; border-radius: 6px; }
@@ -367,6 +414,8 @@ main { padding: 20px; max-width: 1400px; margin: 0 auto; }
 .node { padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 6px; background: var(--card-bg); color: var(--text-color); white-space: normal; transition: all 0.2s ease; cursor: pointer; flex-grow: 1; }
 .node:hover { border-color: var(--primary-color); }
 .selected-node > .node-wrap > .node { background-color: var(--secondary-color); color: #fff; border-color: var(--secondary-color); }
+
+/* ===== Timeline Styling ===== */
 .timeline-selector { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
 #boardSelector { margin-bottom: 25px; }
 .timeline-select-btn, .board-select-btn { padding: 10px 18px; font-size: 1rem; font-weight: 500; cursor: pointer; border: 1px solid var(--border-color); background-color: var(--card-bg); color: var(--text-color); border-radius: 8px; transition: all 0.3s ease; }
@@ -377,13 +426,12 @@ main { padding: 20px; max-width: 1400px; margin: 0 auto; }
 .timeline-card.status-upcoming { border-color: #f5b50a; }
 .timeline-card.status-ongoing { border-color: #28a745; }
 .timeline-card.status-completed { border-color: #6c757d; opacity: 0.8; }
+
+/* ===== Courses Tab Layout ===== */
 .courses-container { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; align-items: flex-start; }
 .courses-column { height: 70vh; display: flex; flex-direction: column; }
 .courses-column h3 { margin-top: 0; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
 #careerTree, .details-panel { overflow: auto; flex-grow: 1; }
-#quizBox button { display: block; width: 100%; padding: 12px; margin-top: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--background-color); color: var(--text-color); cursor: pointer; transition: all 0.2s ease; font-size: 1rem; text-align: left; }
-#quizBox button:hover { border-color: var(--primary-color); transform: translateY(-1px); }
-.quiz-results .recommendation { background-color: var(--background-color); border-left: 4px solid var(--secondary-color); padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
-.result-buttons { display: flex; gap: 10px; margin-top: 20px; }
+
 @media (max-width: 1024px) { .courses-container { grid-template-columns: 1fr 1fr; } #colleges-column { grid-column: 1 / -1; } }
 @media (max-width: 768px) { header { flex-direction: column; align-items: center; gap: 10px; } .courses-container { grid-template-columns: 1fr; } .courses-column { height: auto; min-height: 40vh; } }
