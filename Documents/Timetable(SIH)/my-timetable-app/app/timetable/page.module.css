@@ -1,0 +1,40 @@
+.header {
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+    background-color: var(--panel);
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text);
+}
+
+.icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.buttonIcon {
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+    margin-right: 0.25rem;
+    vertical-align: text-bottom;
+}
+
+/* Add this to hide elements from printing */
+@media print {
+    .noPrint {
+        display: none !important;
+    }
+}

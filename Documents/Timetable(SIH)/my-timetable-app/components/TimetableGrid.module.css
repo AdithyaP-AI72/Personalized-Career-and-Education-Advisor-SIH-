@@ -1,0 +1,65 @@
+.gridContainer {
+    padding: 1rem;
+    overflow-x: auto;
+    background-color: var(--bg);
+}
+
+.ttGrid {
+    display: grid;
+    border-collapse: collapse;
+    min-width: 800px;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.ttCell {
+    border: 1px solid var(--border);
+    padding: 0.75rem;
+    text-align: center;
+    min-height: 80px;
+    transition: background-color 0.2s;
+}
+
+.header {
+    background-color: var(--panel);
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.ttCell:not(.header) {
+    cursor: pointer;
+}
+
+.ttCell:not(.header):hover {
+    background-color: var(--panel-hover);
+}
+
+.courseName {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.courseDetails {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+}
+
+.conflictHighlight {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-left: 3px solid #ef4444;
+}
+
+.conflictText {
+    font-size: 0.75rem;
+    color: #fca5a5;
+    margin-top: 0.5rem;
+}
+
+.availableText {
+    color: var(--muted);
+    font-size: 0.875rem;
+}
